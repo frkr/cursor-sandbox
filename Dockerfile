@@ -1,4 +1,6 @@
 FROM ubuntu:24.04
+ENV GH_TOKEN=""
+ENV CURSOR_API_KEY=""
 
 RUN apt-get update && apt-get install -y jq wget git zip dos2unix \
     	&& mkdir -p -m 755 /etc/apt/keyrings \
@@ -9,3 +11,6 @@ RUN apt-get update && apt-get install -y jq wget git zip dos2unix \
     	&& apt-get update \
     	&& apt-get install -y gh
 
+RUN curl https://cursor.com/install -fsS | bash
+
+ENTRYPOINT cursor-agent -p --force --output-format text --model auto
