@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 ENV GH_TOKEN=""
 ENV CURSOR_API_KEY=""
 
-RUN apt-get update && apt-get install -y jq wget git zip dos2unix \
+RUN apt-get update && apt-get install -y jq curl wget git zip dos2unix \
     	&& mkdir -p -m 755 /etc/apt/keyrings \
     	&& wget -nv -O /etc/apt/keyrings/githubcli-archive-keyring.gpg https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     	&& chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
@@ -12,5 +12,7 @@ RUN apt-get update && apt-get install -y jq wget git zip dos2unix \
     	&& apt-get install -y gh
 
 RUN curl https://cursor.com/install -fsS | bash
+ENV PATH="/root/.local/bin:${PATH}"
+WORKDIR /work
 
-ENTRYPOINT cursor-agent -p --force --output-format text --model auto
+ENTRYPOINT ["cursor-agent","-p","--model","auto","--force","--output-format","text"]
