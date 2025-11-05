@@ -30,7 +30,7 @@ docker build --platform="linux/amd64" -t frkr/cursor-sandbox .
 For easier usage, add this alias to your shell configuration file (`.bashrc`, `.zshrc`, etc.):
 
 ```bash
-alias cr='docker run -e CURSOR_API_KEY=$CURSOR_API_KEY -v "$PWD:/work" frkr/cursor-sandbox'
+alias cr='docker run --rm -e CURSOR_API_KEY=$CURSOR_API_KEY -v "$PWD:/work" frkr/cursor-sandbox'
 ```
 
 After adding the alias, reload your shell configuration:
